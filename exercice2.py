@@ -1,18 +1,11 @@
-# Exercice 2
-# Importation de la librarie Time
-import time
-
-n = int(input("Entrez un nombre entier n positif: "))
-
-for i in range(n, 0, -1):
-    print(i)
-    time.sleep(1)
-
-import time
-
-n = int(input("Entrez un nombre entier n positif: "))
-
-while n >= 0:
-    print(n)
-    n -= 1
-    time.sleep(1)
+# Coded By Akif
+# Demande le nombre d'étudiants à l'utilisateur
+nombreEtudiants = int(input("Donnez le nombre d'etudiants : "))
+moyenne = 0.0
+# déclaration d’une liste vide qui va contenir autant de notes que d'étudiants
+notes = []
+for i in range(nombreEtudiants):
+  note = float(input("Donnez la note de l'étudiant : "))
+  moyenne = moyenne + note
+moyenne = moyenne / nombreEtudiants
+print("La moyenne des notes est : ", moyenne)

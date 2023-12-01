@@ -1,39 +1,32 @@
-# Exercice 5
+# Coded by Akif
+def bissextile(annee):
+  return (annee % 4 == 0 and annee % 100 != 0) or (annee % 400 == 0)
 
-# Création de fonctions
-def calculate_cost(start_hour, end_hour):
-    if not(0 <= start_hour <= 24) or not(0 <= end_hour <= 24):
-        return "Les heures doivent être comprises entre 0 et 24 !"
-    elif start_hour > end_hour:
-        return "Attention ! le début de la location est après la fin ..."
-    elif start_hour == end_hour:
-        return "Attention ! l’heure de fin est identique à l’heure de début."
+def date_valide(date):
+  if len(date) != 8:
+      return False
+
+  jour = int(date[:2])
+  mois = int(date[2:4])
+  annee = int(date[4:])
+
+  if mois < 1 or mois > 12:
+      return False
+
+  jours_par_mois = [0, 31, 28, 31, 30, 31, 30, 31, 31, 30, 31, 30, 31]
+
+  if bissextile(annee):
+      jours_par_mois[2] = 29
+
+  return 1 <= jour <= jours_par_mois[mois]
+
+
+# Verification avec les dates suivantes
+dates = ["3102199", "31041000", "32052020", "30032021", "29022022"]
+
+for date in dates:
+    if date_valide(date):
+        print(f"{date} est une date valide.")
+
     else:
-        early_hours = min(end_hour, 7) - start_hour
-        late_hours = max(0, end_hour - 17)
-        night_hours = max(0, 24 - end_hour) + max(0, start_hour - 7)
-        return early_hours * 1 + late_hours * 2 + night_hours * 1,
-
-def get_hours():
-    while True:
-        try:
-            start_hour = int(input("Donnez l'heure de début de la location (un entier) : "))
-            end_hour = int(input("Donnez l'heure de fin de la location (un entier) : "))
-            return start_hour, end_hour
-        except ValueError:
-            print("Veuillez entrer des entiers.")
-
-def main():
-    start_hour, end_hour = get_hours()
-    cost = calculate_cost(start_hour, end_hour)
-    if isinstance(cost, tuple):
-        early_hours, late_hours, night_hours = cost
-        print(f"Vous avez loué votre vélo pendant {early_hours} heure(s) au tarif horaire de 1.0 euro(s) ")
-        print(f"{late_hours} heure(s) au tarif horaire de 2.0 euro(s) ")
-        print(f"{night_hours} heure(s) au tarif horaire de 1.0 euro(s) ")
-        print(f"Le montant total à payer est de {early_hours + late_hours * 2 + night_hours} euro(s).")
-    else:
-        print(cost)
-# Exécution du programme
-if __name__ == "__main__":
-    main()
+        print(f"{date} n'est pas une date valide.")
